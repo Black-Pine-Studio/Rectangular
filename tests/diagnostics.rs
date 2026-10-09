@@ -47,3 +47,10 @@ fn snippet_in_bounds(){
     let snippet = diag.borrow().source_map.get_snippet(&Span::new(4, 5));
     assert_eq!(snippet, "x");
 }
+
+#[test]
+fn clamping_test(){
+    let diag = make_diag("let x = 5");
+    let snippet = diag.borrow().source_map.get_snippet(&Span::new(4, 100));
+    assert_eq!(snippet, "x = 5");
+}
