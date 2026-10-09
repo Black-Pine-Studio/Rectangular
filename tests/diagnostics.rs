@@ -49,7 +49,7 @@ fn snippet_in_bounds(){
 }
 
 #[test]
-fn clamping_test(){
+fn snippet_end_past_source_is_clamped(){
     let diag = make_diag("let x = 5");
     let snippet = diag.borrow().source_map.get_snippet(&Span::new(4, 100));
     assert_eq!(snippet, "x = 5");
