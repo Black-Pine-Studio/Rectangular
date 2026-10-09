@@ -25,3 +25,15 @@ fn line_col_last_line(){
     let diag = make_diag("ab\ncd\nef");
     assert_eq!(diag.borrow().source_map.get_line_col(7), (3, 2));
 }
+
+#[test]
+fn line_col_one_past_end(){
+    let diag = make_diag("ab\ncd\nef");
+    assert_eq!(diag.borrow().source_map.get_line_col(8), (3, 3));
+}
+
+#[test]
+fn line_col_empty_source(){
+    let diag = make_diag("");
+    assert_eq!(diag.borrow().source_map.get_line_col(0), (1, 1));
+}
