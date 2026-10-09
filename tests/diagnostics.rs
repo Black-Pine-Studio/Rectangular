@@ -61,3 +61,15 @@ fn snippet_start_past_source_is_empty(){
     let snippet = diag.borrow().source_map.get_snippet(&Span::new(50, 100));
     assert_eq!(snippet, "");
 }
+
+#[test]
+fn line_snippet_first_line(){
+    let diag = make_diag("ab\ncd\nef");
+    assert_eq!(diag.borrow().source_map.get_line_snippet(0), "ab");
+}
+
+#[test]
+fn line_snippet_middle_line(){
+    let diag = make_diag("ab\ncd\nef");
+    assert_eq!(diag.borrow().source_map.get_line_snippet(4), "cd");
+}
