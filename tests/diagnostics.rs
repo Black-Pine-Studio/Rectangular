@@ -1,7 +1,9 @@
 mod common;
 
 use common::make_diag;
+use rectangular::diagnostics::Span;
 
+// get_line_col tests
 #[test]
 fn line_col_first_character(){
     let diag = make_diag("ab\ncd\nef");
@@ -36,4 +38,12 @@ fn line_col_one_past_end(){
 fn line_col_empty_source(){
     let diag = make_diag("");
     assert_eq!(diag.borrow().source_map.get_line_col(0), (1, 1));
+}
+
+// Span Tests
+#[test]
+fn snippet_in_bounds(){
+    let diag = make_diag("let x = 5");
+    let snippet = diag.borrow().source_map.get_snippet(&Span::new(4, 5));
+    assert_eq!(snippet, "x");
 }
